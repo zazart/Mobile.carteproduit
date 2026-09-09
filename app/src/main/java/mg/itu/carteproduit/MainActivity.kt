@@ -6,12 +6,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 // Imports déjà prêts pour les TODO A et B — ne pas les supprimer :
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -90,27 +94,39 @@ fun ProduitCard(produit: Produit) {
             else MaterialTheme.colorScheme.surfaceVariant
         ),
     ) {
-        Column(Modifier.padding(16.dp)) {
-            Text(produit.nom, style = MaterialTheme.typography.titleLarge)
-            Text(
-                "Origine : ${produit.origine}",
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Text(
-                produit.prixKg?.let { "${formatAriary(it)} / kg" } ?: "prix non fixé",
-                style = MaterialTheme.typography.bodyLarge,
-            )
-
-            Spacer(Modifier.height(12.dp))
-
-            // TODO A :
-            // 1. Déclarez EN HAUT de la fonction (au-dessus de la Card) :
-            //      var quantite by remember { mutableStateOf(0) }
-            // 2. Remplacez les deux lignes ci-dessous par :
-            //      Text("Quantité : $quantite kg")
-            //      Button(onClick = { quantite++ }) { Text("Ajouter 1 kg") }
-            Text("Quantité : $quantite kg")
-            Button(onClick = { quantite++ }) { Text("Ajouter 1 kg") }
+        Row(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(produit.nom, style = MaterialTheme.typography.titleLarge)
+                Text(
+                    "Origine : ${produit.origine}",
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Text(
+                    produit.prixKg?.let { "${formatAriary(it)} / kg" } ?: "prix non fixé",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+            Spacer(Modifier.width(12.dp))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                // TODO A :
+                // 1. Déclarez EN HAUT de la fonction (au-dessus de la Card) :
+                //      var quantite by remember { mutableStateOf(0) }
+                // 2. Remplacez les deux lignes ci-dessous par :
+                //      Text("Quantité : $quantite kg")
+                //      Button(onClick = { quantite++ }) { Text("Ajouter 1 kg") }
+                Text("Quantité : $quantite kg")
+                Button(onClick = { quantite++ }) { Text("Ajouter 1 kg") }
+            }
         }
     }
 }
