@@ -1,2 +1,4 @@
-
-.gradle/9.3.0/fileHashes/resourceHashesCache.bin
+.gradle/
+build/
+/app/build/
+local.properties
